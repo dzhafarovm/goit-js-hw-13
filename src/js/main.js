@@ -1,4 +1,4 @@
-// --ИМПОРТ
+// -- ИМПОРТ
 import Notiflix from 'notiflix';
 import card from '../hbs/card.hbs';
 import PicturesApiService from './api-service';
