@@ -54,6 +54,7 @@ function onRenderPictures({ totalHits, hits }) {
 
   divEl.insertAdjacentHTML('beforeend', card(hits));
   btnLoadMore.classList.remove('is-hidden');
+  Notiflix.Notify.success(`Hooray! We found ${totalPictures} images.`);
 }
 
 // -- БЛОК ОШИБКИ
