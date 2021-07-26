@@ -26,16 +26,16 @@ function onSearch(e) {
     return;
   }
   picturesApiService.resetPage();
-  picturesApiService.fetchcImages().then(onOk).catch(onError);
+  picturesApiService.fetchcImages().then(onRenderPictures).catch(onError);
 }
 
 // -- ЗАПРОС ПО КНОПКЕ LOAD MORE
 function onLoadMore() {
-  picturesApiService.fetchcImages().then(onOk).catch(onError);
+  picturesApiService.fetchcImages().then(onRenderPictures).catch(onError);
 }
 
 // -- РЕНДЕР ИЗОБРАЖЕНИЙ
-function onOk({ totalHits, hits }) {
+function onRenderPictures({ totalHits, hits }) {
   if (hits.length === 0) {
     btnLoadMore.classList.add('is-hidden');
     Notiflix.Notify.failure(
