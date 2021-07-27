@@ -1,4 +1,5 @@
 // -- ИМПОРТ
+// import SimpleLightbox from 'simplelightbox';
 import Notiflix from 'notiflix';
 import card from '../hbs/card.hbs';
 import PicturesApiService from './api-service';
@@ -18,11 +19,11 @@ btnLoadMore.addEventListener('click', onLoadMore);
 // -- ЗАПРОС ПРИ SUBMIT ФОРМЫ
 function onSearch(e) {
   e.preventDefault();
+  btnLoadMore.classList.add('is-hidden');
 
   clearContainer();
   picturesApiService.query = e.currentTarget.elements.query.value.trim();
   if (picturesApiService.query === '') {
-    btnLoadMore.classList.add('is-hidden');
     return;
   }
   picturesApiService.resetPage();
@@ -54,7 +55,7 @@ function onRenderPictures({ totalHits, hits }) {
 
   divEl.insertAdjacentHTML('beforeend', card(hits));
   btnLoadMore.classList.remove('is-hidden');
-  Notiflix.Notify.success(`Hooray! We found ${totalPictures} images.`);
+  Notiflix.Notify.success(`Hooray! We found ${totalPictures} images out of ${totalHits}.`);
 }
 
 // -- БЛОК ОШИБКИ
