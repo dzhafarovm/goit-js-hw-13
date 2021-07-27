@@ -1,5 +1,5 @@
 // -- ИМПОРТ
-// import SimpleLightbox from 'simplelightbox';
+import SimpleLightbox from 'simplelightbox';
 import Notiflix from 'notiflix';
 import card from '../hbs/card.hbs';
 import PicturesApiService from './api-service';
@@ -9,8 +9,9 @@ const divEl = document.querySelector('.gallery');
 const btnLoadMore = document.querySelector('.load-more');
 const formEl = document.querySelector('.search-form');
 
-// -- ЭКЗЕМПЛЯР КЛАССА PicturesApiService
+// -- ЭКЗЕМПЛЯРЫ КЛАССОВ PicturesApiService и SimpleLightbox
 const picturesApiService = new PicturesApiService();
+const gallery = new SimpleLightbox('.photo-card a');
 
 // -- СОБЫТИЯ
 formEl.addEventListener('submit', onSearch);
@@ -54,6 +55,7 @@ function onRenderPictures({ totalHits, hits }) {
   }
 
   divEl.insertAdjacentHTML('beforeend', card(hits));
+  gallery.refresh();
   btnLoadMore.classList.remove('is-hidden');
   Notiflix.Notify.success(`Hooray! We found ${totalPictures} images out of ${totalHits}.`);
 }
