@@ -11,7 +11,7 @@ const formEl = document.querySelector('.search-form');
 
 // -- ЭКЗЕМПЛЯРЫ КЛАССОВ PicturesApiService и SimpleLightbox
 const picturesApiService = new PicturesApiService();
-const gallery = new SimpleLightbox('.photo-card a');
+const gallery = new SimpleLightbox('.gallery a');
 
 // -- СОБЫТИЯ
 formEl.addEventListener('submit', onSearch);
