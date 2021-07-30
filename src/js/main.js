@@ -17,6 +17,10 @@ const gallery = new SimpleLightbox('.gallery a');
 formEl.addEventListener('submit', onSearch);
 btnLoadMore.addEventListener('click', onLoadMore);
 
+// -- ГЛОБАЛЬНАЯ ПЕРЕМЕННАЯ ДЛЯ ПОДСЧЕТА
+// -- КОЛИЧЕСТВА ЗАГРУЖЕННЫХ И ОТРИСОВАННЫХ КАРТИНОК
+let totalRenderPictures = 0;
+
 // -- ЗАПРОС ПРИ SUBMIT ФОРМЫ
 function onSearch(e) {
   e.preventDefault();
@@ -27,6 +31,7 @@ function onSearch(e) {
   if (picturesApiService.query === '') {
     return;
   }
+  totalRenderPictures = 0;
   picturesApiService.resetPage();
   picturesApiService.fetchcImages().then(onRenderPictures).catch(onError);
 }
@@ -46,9 +51,9 @@ function onRenderPictures({ totalHits, hits }) {
     return;
   }
 
-  let totalPictures = picturesApiService.quantityPerPage * (picturesApiService.page - 1);
+  totalRenderPictures += hits.length;
 
-  if (totalPictures > totalHits) {
+  if (totalRenderPictures === totalHits) {
     btnLoadMore.classList.add('is-hidden');
     Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
     return;
@@ -57,7 +62,7 @@ function onRenderPictures({ totalHits, hits }) {
   divEl.insertAdjacentHTML('beforeend', card(hits));
   gallery.refresh();
   btnLoadMore.classList.remove('is-hidden');
-  Notiflix.Notify.success(`Hooray! We found ${totalPictures} images out of ${totalHits}.`);
+  Notiflix.Notify.success(`Hooray! We found ${totalRenderPictures} images out of ${totalHits}.`);
 }
 
 // -- БЛОК ОШИБКИ
