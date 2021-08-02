@@ -15,7 +15,7 @@ const gallery = new SimpleLightbox('.gallery a');
 
 // -- СОБЫТИЯ
 formEl.addEventListener('submit', onSearch);
-btnLoadMore.addEventListener('click', onLoadMore);
+btnLoadMore.addEventListener('click', onRequestImages);
 
 // -- ГЛОБАЛЬНАЯ ПЕРЕМЕННАЯ ДЛЯ ПОДСЧЕТА
 // -- КОЛИЧЕСТВА ЗАГРУЖЕННЫХ И ОТРИСОВАННЫХ КАРТИНОК
@@ -33,11 +33,11 @@ function onSearch(e) {
   }
   totalRenderPictures = 0;
   picturesApiService.resetPage();
-  picturesApiService.fetchcImages().then(onRenderPictures).catch(onError);
+  onRequestImages();
 }
 
-// -- ЗАПРОС ПО КНОПКЕ LOAD MORE
-function onLoadMore() {
+// -- ЗАПРОС ЗА ИЗОБРАЖЕНИЯМИ
+function onRequestImages() {
   picturesApiService.fetchcImages().then(onRenderPictures).catch(onError);
 }
 
